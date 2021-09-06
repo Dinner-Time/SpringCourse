@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace => 패키지명.인터페이스명 -->
+<mapper namespace="com.d_time.board.mapper.BoardMapper">
+
+	<sql id="criteria">
+		<trim prefix="AND (" suffix=")" prefixOverrides="OR">
+	    	<foreach item="type" collection="typeArr">
+	    		<trim prefix="OR">
+	    			<choose>
+						<when test="type == 'T'.toString()">
+							title like '%' || #{keyword} || '%'
+						</when>
+						<when test="type == 'C'.toString()">
+							content like '%' || #{keyword} || '%'
+						</when>
+						<when test="type == 'W'.toString()">
+							writer like '%' || #{keyword} || '%'
+						</when>
+					</choose>
+	    		</trim>
+	    	</foreach>
+	    </trim>
+	</sql>
+
+	<select id="getTotalCount" parameterType="criteria" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			tbl_board
+		WHERE
+			bno > 0
+		<include refid="criteria"></include>
+	</select>
+	
+	<select id="getList" resultType="boardVO">
+	<!-- 페이징 처리 -->
+		SELECT 
+			rn,
+		    bno,
+		    title,
+		    content,
+		    writer,
+		    regdate
+		FROM 
+		    (SELECT 
+		        /*+ INDEX_DESC(tbl_board SYS_C007338) */
+		        a.*, 
+		        ROWNUM rn
+		    FROM 
+		        tbl_board a
+		    WHERE 
+<![CDATA[		
+			ROWNUM <= #{pageNum} * #{amount} 
+]]>
+		    <include refid="criteria"></include>
+		    ORDER BY bno DESC )
+		WHERE rn >= (#{pageNum} - 1) * #{amount} + 1 
+	</select>
+
+	<select id="read" parameterType="boardVO" resultType="boardVO">
+		SELECT 
+			bno,
+			title,
+			content,
+			writer,
+			regdate,
+			updatedate
+		FROM 
+			tbl_board
+		WHERE 
+			bno = #{bno}
+	</select>
+
+	<insert id="insert" parameterType="boardVO">
+		<selectKey order="BEFORE" keyProperty="bno" resultType="long">
+			SELECT seq_board.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO 
+			tbl_board
+			(bno,
+			title,
+			content,
+			writer)
+		VALUES
+			(#{bno},
+			#{title},
+			#{content},
+			#{writer})
+	</insert>
+
+	<update id="update" parameterType="boardVO">
+		UPDATE 
+			tbl_board
+		SET 
+			title = #{title},
+			content = #{content},
+			updatedate = sysdate
+		WHERE 
+			bno = #{bno}
+	</update>
+
+	<delete id="delete" parameterType="boardVO">
+		DELETE FROM 
+			tbl_board
+		WHERE 
+			bno = #{bno}
+	</delete>
+</mapper>
