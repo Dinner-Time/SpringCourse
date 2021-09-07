@@ -1,4 +1,4 @@
-package com.d_time.home.controller;
+package com.d_time.common.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

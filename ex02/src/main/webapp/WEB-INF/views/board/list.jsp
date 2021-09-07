@@ -22,7 +22,7 @@
 			</select>
 			<input type="text" name="keyword" value="${pageMaker.cri.keyword }">
 			<input type="hidden" name="bno" value="">
-			<input type="hidden" name="pageNum" value="1">
+			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
 			<button>검색</button>
 		</form>

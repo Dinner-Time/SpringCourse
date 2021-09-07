@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.d_time.board.domain.BoardVO;
-import com.d_time.board.domain.Criteria;
+import com.d_time.common.domain.Criteria;
 
 /* Naming Rules
 	1) method의 시작은 table이름(vo의 앞단어) ex) board

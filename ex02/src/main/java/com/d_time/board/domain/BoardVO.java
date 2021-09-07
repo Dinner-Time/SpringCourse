@@ -20,7 +20,7 @@ public class BoardVO {
 	// 작성자
 	private String writer;	
 	// 작성일자
-	@JsonFormat(pattern = "yyyy-MM-dd a hh:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date regdate;	
 	// 수정일자
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")

@@ -1,4 +1,4 @@
-package com.d_time.board.domain;
+package com.d_time.common.domain;
 
 import lombok.Data;
 

@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.d_time.board.domain.BoardVO;
-import com.d_time.board.domain.Criteria;
 import com.d_time.board.mapper.BoardMapper;
+import com.d_time.common.domain.Criteria;
 
 @Service // service interface가 아닌 impl에서
 public class BoardServiceImpl implements BoardService {

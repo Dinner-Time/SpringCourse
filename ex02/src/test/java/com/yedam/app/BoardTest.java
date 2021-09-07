@@ -8,8 +8,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.d_time.board.domain.BoardVO;
-import com.d_time.board.domain.Criteria;
 import com.d_time.board.service.BoardService;
+import com.d_time.common.domain.Criteria;
 
 import lombok.extern.slf4j.Slf4j;
 

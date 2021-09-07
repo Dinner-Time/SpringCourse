@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.d_time.board.domain.BoardVO;
-import com.d_time.board.domain.Criteria;
-import com.d_time.board.domain.PageVO;
 import com.d_time.board.service.BoardService;
+import com.d_time.common.domain.Criteria;
+import com.d_time.common.domain.PageVO;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
 @RequestMapping("/board/*")
-@SessionAttributes("criteria")
+// @SessionAttributes("criteria")
 public class BoardController {
 	
 	@Autowired BoardService boardDAO;
@@ -44,11 +44,11 @@ public class BoardController {
 	public String update(BoardVO board, Criteria cri, RedirectAttributes rttr) {
 		boardDAO.update(board);
 		rttr.addFlashAttribute("result", "update");
-		// rttr.addFlashAttribute(cri);
+		rttr.addFlashAttribute(cri);
 		return "redirect:/board/list";
 	}
 	
-	/* Restful 개발 방식
+	/* RESTful 개발 방식
 	 *  같은 uri이지만 method 방식에 따라 처리 방법이 달라진다
 	 * 		=> Get : read
 	 * 		=> Put : update
@@ -73,7 +73,7 @@ public class BoardController {
 	public String delete(BoardVO board, Criteria cri, RedirectAttributes rttr) {
 		boardDAO.delete(board);
 		rttr.addFlashAttribute("result", "delete");
-		// rttr.addFlashAttribute(cri);
+		rttr.addFlashAttribute(cri);
 		return "redirect:/board/list";
 	}
 }
